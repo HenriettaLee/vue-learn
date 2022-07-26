@@ -1,0 +1,1 @@
+npm install vue@2.6.10
