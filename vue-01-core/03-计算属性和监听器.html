@@ -1,0 +1,70 @@
+<body>
+
+    <div id="app">
+        数学：<input type="text" v-model="mathScore">
+        <br>
+        英语: <input type="text" v-model="englishScore">
+        <br>
+        总分(方法-单向): <input type="text" v-model="sumScore()">
+        <br>
+        总分(计算属性-单向): <input type="text" v-model="sumScore1">
+        <br>
+        总分(计算属性-双向)：<input type="text" v-model="sumScore2">
+        <br>
+
+
+        <!--监听器watch-->
+        总分(监听器)：<input type="text" v-model="sumScore3">
+        <br>
+
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                mathScore:80,
+                englishScore:90,
+                sumScore3:170
+            },
+            methods:{
+                sumScore:function(){
+                    console.log('sumScore调用')
+                    return (this.mathScore-0)+(this.englishScore-0)
+                }
+
+            },
+            computed:{ //计算属性
+                sumScore1:function(){
+                    console.info("sumScore1被调用")
+                    return (this.mathScore-0)+(this.englishScore-0)
+                },
+                sumScore2:{
+                    get:function(){
+                        console.info("sumScore2被调用")
+                        return (this.mathScore-0)+(this.englishScore-0)
+                    },
+                    set:function(newValue){
+                        var avgScore=newValue/2
+                        this.mathScore=avgScore
+                        this.englishScore=avgScore
+                    }
+                }
+
+            },
+            //监听器watch
+            //当属性数据发生变化时,对应属性的回调函数会自动调用, 在函数内部进行计算
+            // 通过 watch 选项 或者 vm 实例的 $watch() 来监听指定的属性
+            watch:{
+                mathScore:function(newValue,oldValue){
+                    this.sumScore3=(newValue-0)+(this.englishScore-0)
+                }
+            }
+        })
+
+        vm.$watch('englishScore',function(newValue){
+            this.sumScore3=(newValue-0)+(this.mathScore-0)
+        })
+    </script>
+</body>
