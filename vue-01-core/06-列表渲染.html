@@ -1,0 +1,35 @@
+<body>
+    <div id="app">
+        <h2>1.迭代数组</h2>
+        <ul>
+            <li v-for="(e,index) in emps" :key="index">
+                编号:{{index+1}}, 姓名:{{e.name}}, 工资:{{e.salary}}
+            </li> 
+        </ul>
+
+
+        <br>
+
+        <h2>2.迭代对象</h2>
+        <ul>
+            <li v-for="(value,key,index) in emps[0]">
+                第{{index+1}}个属性为：{{key}}={{value}}
+            </li>
+        </ul>
+    </div>
+
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                emps:[
+                    {name: 'Colin', salary:1000},
+                    {name:'Morgan',salary:2000},
+                    {name:'Dan', salary:3000}
+                ]
+            }
+        })
+    </script>
+</body>
